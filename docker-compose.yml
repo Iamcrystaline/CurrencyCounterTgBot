@@ -1,0 +1,22 @@
+services:
+  tg-bot:
+    depends_on:
+      - db
+    build:
+      context: .
+    environment:
+      - TELEGRAM_BOT_KEY=
+      - EXCHANGERATESDATA_API_KEY=
+      - REVAI_API_KEY=
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/telegram
+    restart: always
+
+  db:
+    image: postgres:15.2-alpine
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: telegram
+      POSTGRES_USER: crystaline
